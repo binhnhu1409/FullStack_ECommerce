@@ -1,5 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Add configure to redirect http to https
+
+builder.WebHost.UseKestrel(options =>
+{
+    options.ListenLocalhost(5000);
+    options.ListenLocalhost(5001, options => options.UseHttps());
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
