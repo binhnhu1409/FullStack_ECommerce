@@ -7,4 +7,5 @@ public class Product : BaseModel
     public int? Price { get; set; }
     public int? Inventory { get; set; }
     public Guid CategoryId { get; set; }
+    public Category Category { get; set; } = null!;
 }

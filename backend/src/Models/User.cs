@@ -19,6 +19,8 @@ public class User : BaseModel
     public string Email { get; set; } = null!;
 
     public Guid? AddressId { get; set; }
+    public Image Image { get; set; } = null!;
+    public Cart Cart { get; set; } = null!;
 
     public enum UserRole
     {
