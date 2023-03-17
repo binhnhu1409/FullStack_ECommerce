@@ -34,7 +34,7 @@ public class DatabaseContext : DbContext
     {
         base.OnModelCreating(builder);
 
-        builder.HasPostgresEnum<User.UserRole>(); 
+        builder.HasPostgresEnum<Role>(); 
         builder.Entity<User>(entity => 
         {
             entity.Property(e => e.Role).HasColumnType("role");
