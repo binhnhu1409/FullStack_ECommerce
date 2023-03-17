@@ -47,6 +47,4 @@ public class DatabaseContext : DbContext
         builder.AddCartConfig();
         builder.AddTimestampConfig();
     }   
-
-
 }

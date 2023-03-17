@@ -1,3 +1,7 @@
+
+using backend.src.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add configure to redirect http to https
@@ -11,6 +15,8 @@ builder.WebHost.UseKestrel(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
