@@ -1,8 +1,9 @@
 namespace backend.src.Models;
 
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-public class User : BaseModel
+public class User : IdentityUser<Guid>
 {
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
@@ -11,13 +12,6 @@ public class User : BaseModel
         get => $"{FirstName} {LastName}";
     }
     public UserRole Role { get; set;}
-    public byte[] Password { get; set; } = null!;
-    public byte[] Salt { get; set; } = null!;
-
-    [EmailAddress(ErrorMessage = "Invalid Email Address")]
-    [Required(ErrorMessage = "The email address is required")]
-    public string Email { get; set; } = null!;
-
     public Guid? AddressId { get; set; }
     public Image Image { get; set; } = null!;
     public Cart Cart { get; set; } = null!;
