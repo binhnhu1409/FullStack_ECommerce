@@ -11,14 +11,14 @@ public class User : IdentityUser<Guid>
     {
         get => $"{FirstName} {LastName}";
     }
-    public UserRole Role { get; set;}
+    public Role Role { get; set;}
     public Guid? AddressId { get; set; }
     public Image Image { get; set; } = null!;
     public Cart Cart { get; set; } = null!;
+}
 
-    public enum UserRole
-    {
-        Customer, 
-        Admin
-    }
+public enum Role
+{
+    Customer, 
+    Admin
 }
