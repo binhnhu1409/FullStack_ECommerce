@@ -1,7 +1,5 @@
 namespace backend.src.Repositories.BaseRepo;
 
-using backend.src.Models;
-
 public interface IBaseRepo<TModel, TUpdateDto>
 {
     Task<TModel> CreateAsync();
@@ -13,11 +11,12 @@ public interface IBaseRepo<TModel, TUpdateDto>
 
 public class QueryOptions
 {
-    public string Sort { get; set; } = null!;
-    public string Search { get; set; } = null!;
-    public SortBy SortBy { get; set; }
-    public int Limit { get; set; } = 50;
-    public int Skip { get; set; } = 0;
+    public string Sort { get; set; } = string.Empty;
+    public string SearchKeyword { get; set; } = string.Empty;
+    public SortBy SortBy { get; set; } = SortBy.ASC;
+    public string CategoryName { get; set; } = string.Empty;
+    public int? Limit { get; set; }
+    public int? Skip { get; set; }
 }
 
 public enum SortBy 
