@@ -1,12 +1,12 @@
 namespace backend.src.Repositories.BaseRepo;
 
-public interface IBaseRepo<TModel, TUpdateDto>
+public interface IBaseRepo<TModel>
 {
-    Task<TModel> CreateAsync();
-    Task<TModel> GetByIdAsync(string Id);
+    Task<TModel> CreateAsync(TModel request);
+    Task<TModel?> GetByIdAsync(string id);
     Task<IEnumerable<TModel>> GetAllAsync(QueryOptions options);
-    Task<TModel> UpdateAsync(string Id, TUpdateDto update);
-    Task<bool> DeleteAsync();
+    Task<TModel?> UpdateOneAsync(string id, TModel request);
+    Task<bool> DeleteOneAsync(string id);
 }
 
 public class QueryOptions

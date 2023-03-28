@@ -4,22 +4,35 @@ using backend.src.Database;
 using backend.src.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class BaseRepo<TModel, TUpdateDto> : IBaseRepo<TModel, TUpdateDto> 
+public class BaseRepo<TModel> : IBaseRepo<TModel> 
     where TModel : BaseModel
 {
     protected readonly DatabaseContext _context;
+
     public BaseRepo(DatabaseContext context)
     {
         _context = context;
     }
-    public virtual Task<TModel> CreateAsync()
+
+    public virtual async Task<TModel> CreateAsync(TModel request)
     {
-        throw new NotImplementedException();
+        await _context.Set<TModel>().AddAsync(request);
+        await _context.SaveChangesAsync();
+        return request;
     }
 
-    public virtual Task<bool> DeleteAsync()
+    public virtual async Task<bool> DeleteOneAsync(string id)
     {
-        throw new NotImplementedException();
+        var entity = await GetByIdAsync(id);
+        if (entity is null)
+        {
+            return false;
+        } else
+        {
+            _context.Set<TModel>().Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 
     public virtual async Task<IEnumerable<TModel>> GetAllAsync(QueryOptions options)
@@ -36,13 +49,20 @@ public class BaseRepo<TModel, TUpdateDto> : IBaseRepo<TModel, TUpdateDto>
         return await query.ToArrayAsync();
     }
 
-    public virtual Task<TModel> GetByIdAsync(string Id)
+    public virtual async Task<TModel?> GetByIdAsync(string id)
     {
-        throw new NotImplementedException();
+        return await _context.Set<TModel>().FindAsync();
     }
 
-    public virtual Task<TModel> UpdateAsync(string Id, TUpdateDto update)
+    public virtual async Task<TModel?> UpdateOneAsync(string id, TModel request)
     {
-        throw new NotImplementedException();
+        var entity = await GetByIdAsync(id);
+        if (entity is null)
+        {
+            return null;
+        }
+        entity = request;
+        await _context.SaveChangesAsync();
+        return entity;
     }
 }
