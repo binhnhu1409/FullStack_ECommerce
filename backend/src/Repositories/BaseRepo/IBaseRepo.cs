@@ -2,7 +2,7 @@ namespace backend.src.Repositories.BaseRepo;
 
 public interface IBaseRepo<TModel>
 {
-    Task<TModel> CreateAsync(TModel request);
+    Task<TModel?> CreateOneAsync(TModel request);
     Task<TModel?> GetByIdAsync(string id);
     Task<IEnumerable<TModel>> GetAllAsync(QueryOptions options);
     Task<TModel?> UpdateOneAsync(string id, TModel request);

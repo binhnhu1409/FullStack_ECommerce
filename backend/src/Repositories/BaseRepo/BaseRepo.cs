@@ -14,7 +14,7 @@ public class BaseRepo<TModel> : IBaseRepo<TModel>
         _context = context;
     }
 
-    public virtual async Task<TModel> CreateAsync(TModel request)
+    public virtual async Task<TModel?> CreateOneAsync(TModel request)
     {
         await _context.Set<TModel>().AddAsync(request);
         await _context.SaveChangesAsync();
