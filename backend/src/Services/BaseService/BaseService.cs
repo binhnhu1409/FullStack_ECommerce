@@ -16,7 +16,7 @@ public class BaseService<TModel, TReadDto, TCreateDto, TUpdateDto>
         _repository = repository;
     }
 
-    public async Task<TReadDto?> CreateOneAsync(TCreateDto create)
+    public virtual async Task<TReadDto?> CreateOneAsync(TCreateDto create)
     {
         var entity = _mapper.Map<TCreateDto, TModel>(create);
         var result = await _repository.CreateOneAsync(entity);
@@ -48,7 +48,7 @@ public class BaseService<TModel, TReadDto, TCreateDto, TUpdateDto>
         return _mapper.Map<TModel, TReadDto>(entity);
     }
 
-    public async Task<TReadDto?> UpdateOneAsync(string id, TUpdateDto update)
+    public virtual async Task<TReadDto?> UpdateOneAsync(string id, TUpdateDto update)
     {
         var entity = await _repository.GetByIdAsync(id);
         if(entity is null)
