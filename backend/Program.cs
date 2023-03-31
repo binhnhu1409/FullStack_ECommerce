@@ -15,10 +15,10 @@ builder.WebHost.UseKestrel(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
-
-builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
