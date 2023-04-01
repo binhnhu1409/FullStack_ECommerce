@@ -27,4 +27,9 @@ public class CustomizedException : Exception
     {
         return new CustomizedException(HttpStatusCode.BadRequest, errorMessage);
     }
+
+    public static CustomizedException Forbidden(string errorMessage = "You don't have permisson to access this resource")
+    {
+        return new CustomizedException(HttpStatusCode.Forbidden, errorMessage);
+    }
 }
