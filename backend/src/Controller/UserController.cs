@@ -20,7 +20,7 @@ public class UserController
     [HttpGet()]
     public override async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll([FromQuery]QueryOptions options)
     {
-        var role = User.FindFirst(ClaimTypes.Role)?.Value.ToLower();
+        var role = User.FindFirstValue(ClaimTypes.Role)?.ToLower();
         if(role != "admin")
         {
             return Forbid();
@@ -32,17 +32,15 @@ public class UserController
     [HttpPost("{id}")]
     public override async Task<ActionResult<UserReadDto?>> UpdateOne([FromRoute]string id, [FromBody]UserUpdateDto update)
     {
-        var userId = User.FindFirst(ClaimTypes.)
-        if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int userId))
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if(userId == null)
         {
             return NotFound();
         }
-        if (id != userId)
+        if(id != userId)
         {
-            // User is not authorized to update this profile
             return Unauthorized();
         }
         return Ok(await _service.UpdateOneAsync(id, update));
     }
-
 }
