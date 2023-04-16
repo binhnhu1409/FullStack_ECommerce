@@ -7,6 +7,7 @@ public class User : BaseModel
     [EmailAddress(ErrorMessage = "Invalid Email Address")]
     [Required(ErrorMessage = "The email address is required")]
     public string Email { get; set; } = null!;
+    public string Avatar {get; set;} = null!;
 
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
@@ -19,7 +20,6 @@ public class User : BaseModel
     public byte[] Salt { get; set; } = null!;
     public Role Role { get; set;}
     public Guid? AddressId { get; set; }
-    public Image Image { get; set; } = null!;
     public Cart Cart { get; set; } = null!;
 }
 
