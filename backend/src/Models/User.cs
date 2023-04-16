@@ -16,7 +16,7 @@ public class User : BaseModel
         get => $"{FirstName} {LastName}";
     }
 
-    public byte[] Password { get; set; } = null!;
+    public string Password { get; set; } = null!;
     public byte[] Salt { get; set; } = null!;
     public Role Role { get; set;}
     public Guid? AddressId { get; set; }

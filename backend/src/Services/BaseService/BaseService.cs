@@ -22,7 +22,7 @@ public class BaseService<TModel, TReadDto, TCreateDto, TUpdateDto>
         var result = await _repository.CreateOneAsync(entity);
         if(result is null)
         {
-            throw CustomizedException.BadRequest("Invalid data!") ;
+            throw CustomizedException.BadRequest("Invalid data!");
         }
         return _mapper.Map<TModel, TReadDto>(result);
     }
