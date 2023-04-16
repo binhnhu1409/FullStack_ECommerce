@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 public class DatabaseContext : DbContext
 {
     private readonly IConfiguration _config;
-    public DbSet<Address> Addresses { get; set; } = null!;
     public DbSet<Cart> Carts { get; set; } = null!;
     public DbSet<CartItem> CartItems { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
