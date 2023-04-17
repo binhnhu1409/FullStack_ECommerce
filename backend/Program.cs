@@ -1,7 +1,9 @@
 using backend.src.Database;
+using backend.src.Repositories.AuthRepo;
 using backend.src.Repositories.CategoryRepo;
 using backend.src.Repositories.ProductRepo;
 using backend.src.Repositories.UserRepo;
+using backend.src.Services.AuthService;
 using backend.src.Services.CategoryService;
 using backend.src.Services.ProductService;
 using backend.src.Services.UserService;
@@ -41,6 +43,8 @@ builder.Services.Configure<RouteOptions>(options =>
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services
+    .AddScoped<IAuthRepo, AuthRepo>()
+    .AddScoped<IAuthService, AuthService>()
     .AddScoped<IUserRepo, UserRepo>()
     .AddScoped<IUserService, UserService>()
     .AddScoped<IProductRepo, ProductRepo>()
