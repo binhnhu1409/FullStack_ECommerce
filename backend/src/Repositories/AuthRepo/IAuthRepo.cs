@@ -6,5 +6,4 @@ using backend.src.DTOs;
 public interface IAuthRepo
 {
     Task<User?> LogInAsyn (AuthDTO auth);
-    Task<User> AuthenticatedUserAsync(string token);
 }

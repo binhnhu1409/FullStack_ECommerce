@@ -12,10 +12,6 @@ public class AuthRepo : IAuthRepo
     {
         _context = context;
     }
-    public Task<User> AuthenticatedUserAsync(string token)
-    {
-        throw new NotImplementedException();
-    }
 
     public Task<User?> LogInAsyn(AuthDTO auth)
     {
