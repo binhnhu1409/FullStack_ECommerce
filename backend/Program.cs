@@ -10,22 +10,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add configure to redirect http to https
-
-builder.WebHost.UseKestrel(options =>
-{
-    options.ListenLocalhost(5000);
-    options.ListenLocalhost(5001, options => options.UseHttps());
-});
-
-// Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options => 
 {
     options.AddSecurityDefinition(
@@ -39,6 +29,7 @@ builder.Services.AddSwaggerGen(options =>
     );
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.Configure<RouteOptions>(options => 
@@ -72,6 +63,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+//adding cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("https://localhost:5131")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -86,6 +88,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .WithExposedHeaders("Content-Disposition")
+    .SetPreflightMaxAge(TimeSpan.FromMinutes(10))
+);
 
 app.UseAuthentication();
 
