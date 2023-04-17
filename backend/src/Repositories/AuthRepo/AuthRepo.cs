@@ -13,10 +13,9 @@ public class AuthRepo : IAuthRepo
         _context = context;
     }
 
-    public Task<User?> LogInAsyn(AuthDTO auth)
+    public async Task<User?> LogInAsyn(AuthDTO auth)
     {
-        var user = _context.Users.FirstOrDefaultAsync(u => u.Email == auth.Email && u.Password == auth.Password);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == auth.Email && u.Password == auth.Password);
         return user;
     }
-
 }

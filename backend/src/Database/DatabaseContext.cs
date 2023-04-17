@@ -2,6 +2,7 @@ namespace backend.src.Database;
 
 using backend.src.Models;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 public class DatabaseContext : DbContext
 {
@@ -13,25 +14,21 @@ public class DatabaseContext : DbContext
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
 
+    static DatabaseContext()
+    {
+        // Use the legacy timestamp behaviour 
+        // Recommendation from Postgres: Don't use time zone in database
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
     
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration config) : base(options)
     {
         _config = config;
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        // Call the OnConfiguring of the base class
-        base.OnConfiguring(optionsBuilder);
-
-        optionsBuilder
-            .UseNpgsql(_config.GetConnectionString("DefaultConnection"))
-            .UseSnakeCaseNamingConvention();
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(builder);
+        // base.OnModelCreating(builder);
 
         builder.HasPostgresEnum<Role>(); 
         builder.Entity<User>(entity => 
@@ -46,4 +43,16 @@ public class DatabaseContext : DbContext
         builder.AddCartConfig();
         builder.AddTimestampConfig();
     }   
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(
+            _config.GetConnectionString("DefaultConnection")
+        );
+        dataSourceBuilder.MapEnum<Role>("role");
+        var dataSource = dataSourceBuilder.Build();
+        optionsBuilder
+            .UseNpgsql(dataSource)
+            .UseSnakeCaseNamingConvention();
+    }
 }
