@@ -1,4 +1,5 @@
 using backend.src.Database;
+using backend.src.Middlewares;
 using backend.src.Repositories.AuthRepo;
 using backend.src.Repositories.CategoryRepo;
 using backend.src.Repositories.ProductRepo;
@@ -52,6 +53,8 @@ builder.Services
     .AddScoped<ICategoryRepo, CategoryRepo>()
     .AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddTransient<ErrorHandlerMiddleware>();
+
 //add configuration for authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => 
@@ -100,6 +103,8 @@ app.UseCors(builder => builder
     .WithExposedHeaders("Content-Disposition")
     .SetPreflightMaxAge(TimeSpan.FromMinutes(10))
 );
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthentication();
 
