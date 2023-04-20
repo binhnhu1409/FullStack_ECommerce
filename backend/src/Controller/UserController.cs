@@ -21,10 +21,10 @@ public class UserController
     public override async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll([FromQuery]QueryOptions options)
     {
         var role = User.FindFirstValue(ClaimTypes.Role)?.ToLower();
-        if(role != "admin")
-        {
-            return Forbid();
-        }
+        // if(role != "admin")
+        // {
+        //     return Forbid();
+        // }
         return Ok(await _service.GetAllAsync(options));
     }
 

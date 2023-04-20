@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(options =>
         new OpenApiSecurityScheme
         {
             Description = "Bearer token authentication",
-            Name = "Authentication",
+            Name = "Authorization",
             In = ParameterLocation.Header
         }
     );
@@ -69,6 +69,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
+
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+});
 
 //adding cors policy
 builder.Services.AddCors(options =>
