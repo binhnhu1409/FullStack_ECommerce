@@ -19,6 +19,7 @@ GET https://localhost:5131/api/v1/users/all
 GET https://localhost:5131/api/v1/users/{id}
 PUT https://localhost:5131/api/v1/users/{id}
 DELETE https://localhost:5131/api/v1/users/{id}
+```
 
 Category:
 ```sh
@@ -48,6 +49,7 @@ POST https://localhost:5131/api/v1/carts
 GET https://localhost:5131/api/v1/carts/{userId}
 GET https://localhost:5131/api/v1/carts
 DELETE https://localhost:5131/api/v1/carts/{id}
+```
 
 ## Setting Up for folder `Backend`
 
