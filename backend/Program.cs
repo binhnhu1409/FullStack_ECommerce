@@ -1,3 +1,4 @@
+using backend.src.Authorization;
 using backend.src.Database;
 using backend.src.Middlewares;
 using backend.src.Repositories.AuthRepo;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +57,8 @@ builder.Services
 
 builder.Services.AddTransient<ErrorHandlerMiddleware>();
 
+builder.Services.AddTransient<IAuthorizationHandler, UpdateUserHandler>();
+
 //add configuration for authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => 
@@ -73,6 +77,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization(options => 
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("AdminOrOwner", policy => policy.AddRequirements(new UpdateUserRequirement{}));
 });
 
 //adding cors policy

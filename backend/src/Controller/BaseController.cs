@@ -1,6 +1,7 @@
 namespace backend.src.Controller;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using backend.src.Services.BaseService;
 using backend.src.Repositories.BaseRepo;
 
@@ -40,6 +41,7 @@ public class BaseController<TModel,TReadDto, TCreateDto, TUpdateDto>
         return Ok(await _service.UpdateOneAsync(id, update));
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public virtual async Task<ActionResult<bool>> DeleteOne([FromRoute]string id)
     {
