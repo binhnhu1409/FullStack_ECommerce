@@ -1,4 +1,4 @@
-# Fullstack Project
+# Fullstack Project ECommerce project
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.4-hotpink)
@@ -11,7 +11,45 @@
 * Frontend: SASS, TypeScript, React, Redux Toolkit
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
-You can follow the same topics as your backend project. It is also possible to select a different topic
+## Endpoints:
+User:
+```sh
+POST https://localhost:5131/api/v1/users
+GET https://localhost:5131/api/v1/users/all
+GET https://localhost:5131/api/v1/users/{id}
+PUT https://localhost:5131/api/v1/users/{id}
+DELETE https://localhost:5131/api/v1/users/{id}
+```
+
+Category:
+```sh
+GET https://localhost:5131/api/v1/categories
+GET https://localhost:5131/api/v1/categories{id}
+POST https://localhost:5131/api/v1/categories
+PUT https://localhost:5131/api/v1/categories/{id}
+DELETE  https://localhost:5131/api/v1/categories/{id}
+```
+Product:
+```sh
+POST https://localhost:5131/api/v1/products
+GET https://localhost:5131/api/v1/products/all
+GET https://localhost:5131/api/v1/products/{id}
+PUT https://localhost:5131/api/v1/products/{id}
+DELETE https://localhost:5131/api/v1/products/{id}
+```
+
+Authentication:
+```sh
+POST https://localhost:5131/api/v1/auth
+```
+
+Cart:
+```sh
+POST https://localhost:5131/api/v1/carts
+GET https://localhost:5131/api/v1/carts/{userId}
+GET https://localhost:5131/api/v1/carts
+DELETE https://localhost:5131/api/v1/carts/{id}
+```
 
 ## Setting Up for folder `Backend`
 
@@ -22,7 +60,6 @@ You can follow the same topics as your backend project. It is also possible to s
     * Microsoft.EntityFrameworkCore
     * Microsoft.EntityFrameworkCore.Design
     * Npgsql.EntityFrameworkCore.PostgreSQL
-    \
    *You can add more packages when necessary.*
 3. You can change .NET Core version to be compatible with your local machine
 
