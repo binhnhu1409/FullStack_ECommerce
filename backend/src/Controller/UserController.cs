@@ -29,7 +29,7 @@ public class UserController
     }
 
     [Authorize]
-    [HttpPost("{id}")]
+    [HttpPut("{id}")]
     public override async Task<ActionResult<UserReadDto?>> UpdateOne([FromRoute]string id, [FromBody]UserUpdateDto update)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -42,5 +42,12 @@ public class UserController
             return Unauthorized();
         }
         return Ok(await _service.UpdateOneAsync(id, update));
+    }
+
+    [Authorize(Policy = "AdminOrOwner")]
+    [HttpGet("{id}")]
+    public override async Task<ActionResult<UserReadDto?>> GetById([FromRoute]string id)
+    {
+        return Ok(await _service.GetByIdAsync(id));
     }
 }

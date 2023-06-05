@@ -22,12 +22,14 @@ public class BaseController<TModel,TReadDto, TCreateDto, TUpdateDto>
         return Ok(await _service.GetAllAsync(options));
     }
 
+    // only for UserController: [Authorize(Policy = "AdminOrOwner")]
     [HttpGet("{id}")]
-    public async Task<ActionResult<TReadDto?>> GetById([FromRoute]string id)
+    public virtual async Task<ActionResult<TReadDto?>> GetById([FromRoute]string id)
     {
         return Ok(await _service.GetByIdAsync(id));
     }
 
+    //need to be authorized with products and categories (AdminOnly)
     [HttpPost()]
     public virtual async Task<ActionResult<TReadDto?>> CreateOne([FromBody]TCreateDto create)
     {
@@ -35,7 +37,8 @@ public class BaseController<TModel,TReadDto, TCreateDto, TUpdateDto>
         return Ok(result);
     }
 
-    [HttpPost("{id}")]
+    // only for UserController: [Authorize(Policy = "AdminOrOwner")], for other controllers: Admin only
+    [HttpPut("{id}")]
     public virtual async Task<ActionResult<TReadDto?>> UpdateOne([FromRoute]string id, [FromBody]TUpdateDto update)
     {
         return Ok(await _service.UpdateOneAsync(id, update));
