@@ -5,5 +5,5 @@ using backend.src.Models;
 
 public interface IUserRepo : IBaseRepo<User>
 {
-    Task<User?> GetUserProfileAsync(string id);
+    Task<User?> GetUserProfileAsync(Guid id);
 }

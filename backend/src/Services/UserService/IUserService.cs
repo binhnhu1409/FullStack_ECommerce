@@ -6,5 +6,5 @@ using backend.src.DTOs;
 
 public interface IUserService : IBaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>
 {
-    Task<UserReadDto?> GetUserProfileAsync(string userId);
+    Task<UserReadDto?> GetUserProfileAsync(Guid userId);
 }

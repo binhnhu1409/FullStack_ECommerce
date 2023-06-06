@@ -44,7 +44,7 @@ public class UserController
         return Ok(await _service.UpdateOneAsync(id, update));
     }
 
-    [Authorize(Policy = "AdminOrOwner")]
+    [Authorize]
     [HttpGet("{id}")]
     public override async Task<ActionResult<UserReadDto?>> GetById([FromRoute]string id)
     {

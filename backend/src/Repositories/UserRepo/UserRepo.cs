@@ -11,7 +11,7 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     }
 
-    public async Task<User?> GetUserProfileAsync(string id) 
+    public async Task<User?> GetUserProfileAsync(Guid id) 
     {
         var userProfile = await _context.Users.FindAsync(id);
         if(userProfile is null)

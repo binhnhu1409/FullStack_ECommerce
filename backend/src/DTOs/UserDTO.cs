@@ -11,6 +11,7 @@ public class UserBaseDTO
 public class UserReadDto : UserBaseDTO 
 {
     public string Role {get; set;} = null!;
+    public Guid Id {get; set;}
 }
 
 public class UserCreateDto : UserBaseDTO

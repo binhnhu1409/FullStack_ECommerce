@@ -18,7 +18,7 @@ public class UserService
         _repo = repo;
     }
 
-    public async Task<UserReadDto?> GetUserProfileAsync(string userId)
+    public async Task<UserReadDto?> GetUserProfileAsync(Guid userId)
     {
         var result = await _repo.GetUserProfileAsync(userId);
         if(result is null)

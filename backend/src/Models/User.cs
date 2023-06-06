@@ -18,7 +18,6 @@ public class User : BaseModel
 
     public string Password { get; set; } = null!;
     public Role Role { get; set;}
-    public Guid? AddressId { get; set; }
     public Cart Cart { get; set; } = null!;
 }
 
