@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 
 public class UpdateUserRequirement : IAuthorizationRequirement { }
 
-public class UpdateUserHandler : AuthorizationHandler<UpdateUserRequirement>
+public class UpdateUserHandler : AuthorizationHandler<UpdateUserRequirement, User>
 {
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UpdateUserRequirement requirement)
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UpdateUserRequirement requirement, User resource)
     {
         var userRole = context.User.FindFirstValue(ClaimTypes.Role);
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -19,7 +19,7 @@ public class UpdateUserHandler : AuthorizationHandler<UpdateUserRequirement>
             context.Succeed(requirement);
         } 
         // verify if user tries to edit their own profile
-        else if (userId! == context.Resource!.ToString())
+        else if (userId! == resource.Id.ToString())
         {
             context.Succeed(requirement);
         }
